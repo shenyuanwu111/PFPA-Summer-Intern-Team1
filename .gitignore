@@ -1,0 +1,25 @@
+# OS/editor noise
+.DS_Store
+
+# Excel temporary lock files
+~$*.xlsx
+outputs/**/~$*.xlsx
+
+# Logs and generated inspection dumps
+*.log
+*.ndjson
+
+# Dependency links/caches
+node_modules
+work/node_modules
+
+# Raw downloaded source caches. Keep the builder script tracked.
+work/company_tickers.json
+work/fred/
+work/sec/
+work/yahoo/
+work/verification_inspect.ndjson
+work/node_out.log
+
+!work/
+!work/build_financials.mjs
