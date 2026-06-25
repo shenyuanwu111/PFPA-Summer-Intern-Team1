@@ -1,6 +1,12 @@
 # OS/editor noise
 .DS_Store
 
+# Python/runtime noise from existing Week1 project
+__pycache__/
+.venv/
+data/
+*.pyc
+
 # Excel temporary lock files
 ~$*.xlsx
 outputs/**/~$*.xlsx
