@@ -1,18 +1,21 @@
-# Two-Year Financials Workbook
+# Week2 - Two-Year Financials Workbook
 
-This repository contains the generated two-year financial workbook for:
+This repository contains the Week2 two-year financial workbook for:
 
 `COST, KO, DELL, ORCL, PNC, WMT, INTU, AMZN, T, KHC`
 
 ## Deliverable
 
-- `outputs/financials_2026_06_24/two_year_financials.xlsx`
+- `Week2/outputs/financials_2026_06_24/two_year_financials.xlsx`
+- `Week2/outputs/github_upload_report.pdf`
 
 ## Contents
 
-- `work/build_financials.mjs` - Node.js builder script used to create the workbook.
-- `outputs/financials_2026_06_24/*_preview.png` - rendered workbook previews used for visual QA.
-- `outputs/financials_2026_06_24/two_year_financials.xlsx` - final Excel workbook.
+- `Week2/work/build_financials.mjs` - Node.js builder script used to create the workbook.
+- `Week2/work/create_github_upload_report_pdf.py` - Python script used to create the report PDF.
+- `Week2/outputs/financials_2026_06_24/*_preview.png` - rendered workbook previews used for visual QA.
+- `Week2/outputs/financials_2026_06_24/two_year_financials.xlsx` - final Excel workbook.
+- `Week2/outputs/github_upload_report.pdf` - PDF report explaining the uploaded files.
 
 ## Data Sources
 

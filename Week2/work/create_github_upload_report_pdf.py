@@ -12,7 +12,7 @@ from reportlab.platypus import (
 )
 
 
-OUTPUT = "/Users/haixintan/Documents/Codex/2026-06-24/2-years-financials/outputs/github_upload_report.pdf"
+OUTPUT = "/Users/haixintan/Documents/Codex/2026-06-24/2-years-financials/Week2/outputs/github_upload_report.pdf"
 
 
 def footer(canvas, doc):
@@ -103,9 +103,9 @@ def build():
         ["File or Folder", "Purpose"],
         ["README.md", "Project overview, included companies, deliverable location, data sources, and key assumptions."],
         [".gitignore", "Keeps temporary files, logs, raw data caches, and dependency folders out of GitHub."],
-        ["outputs/.../two_year_financials.xlsx", "Final Excel workbook and primary deliverable."],
-        ["work/build_financials.mjs", "Node.js script that generated the workbook and preview images."],
-        ["outputs/.../*_preview.png", "Rendered previews of workbook sheets used for visual QA."],
+        ["Week2/outputs/.../two_year_financials.xlsx", "Final Excel workbook and primary deliverable."],
+        ["Week2/work/build_financials.mjs", "Node.js script that generated the workbook and preview images."],
+        ["Week2/outputs/.../*_preview.png", "Rendered previews of workbook sheets used for visual QA."],
     ]
     data = [[p(cell, small) for cell in row] for row in data]
     table = Table(data, colWidths=[2.65 * inch, 4.05 * inch], repeatRows=1)
@@ -126,7 +126,7 @@ def build():
     story.append(table)
 
     story.append(p("1. Final Excel Workbook", h1))
-    story.append(p("<b>File:</b> outputs/financials_2026_06_24/two_year_financials.xlsx", body))
+    story.append(p("<b>File:</b> Week2/outputs/financials_2026_06_24/two_year_financials.xlsx", body))
     story.append(p(
         "This is the main deliverable. It contains two years of financial, rate, and market data for COST, KO, DELL, ORCL, PNC, WMT, INTU, AMZN, T, and KHC.",
         body,
@@ -143,7 +143,7 @@ def build():
         story.append(p(item, bullet))
 
     story.append(p("2. Code File", h1))
-    story.append(p("<b>File:</b> work/build_financials.mjs", body))
+    story.append(p("<b>File:</b> Week2/work/build_financials.mjs", body))
     story.append(p(
         "This Node.js script generated the Excel workbook. It reads source data, maps company financial fields to SEC XBRL tags, calculates market cap, "
         "calculates dividend adjustment factor from adjusted close divided by close, applies workbook formatting, renders preview images, and exports the final XLSX file.",

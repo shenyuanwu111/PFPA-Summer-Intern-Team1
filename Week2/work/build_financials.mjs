@@ -3,8 +3,8 @@ import path from "node:path";
 import { SpreadsheetFile, Workbook } from "@oai/artifact-tool";
 
 const cwd = "/Users/haixintan/Documents/Codex/2026-06-24/2-years-financials";
-const outDir = path.join(cwd, "outputs", "financials_2026_06_24");
-const workDir = path.join(cwd, "work");
+const outDir = path.join(cwd, "Week2", "outputs", "financials_2026_06_24");
+const workDir = path.join(cwd, "Week2", "work");
 const tickers = ["COST", "KO", "DELL", "ORCL", "PNC", "WMT", "INTU", "AMZN", "T", "KHC"];
 const asOfDate = "2026-06-24";
 

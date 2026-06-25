@@ -10,6 +10,7 @@ data/
 # Excel temporary lock files
 ~$*.xlsx
 outputs/**/~$*.xlsx
+Week2/outputs/**/~$*.xlsx
 
 # Logs and generated inspection dumps
 *.log
@@ -18,6 +19,7 @@ outputs/**/~$*.xlsx
 # Dependency links/caches
 node_modules
 work/node_modules
+Week2/work/node_modules
 
 # Raw downloaded source caches. Keep the builder script tracked.
 work/company_tickers.json
@@ -27,7 +29,18 @@ work/yahoo/
 work/verification_inspect.ndjson
 work/node_out.log
 work/pdf_preview/
+Week2/work/company_tickers.json
+Week2/work/fred/
+Week2/work/sec/
+Week2/work/yahoo/
+Week2/work/verification_inspect.ndjson
+Week2/work/node_out.log
+Week2/work/pdf_preview/
 
 !work/
 !work/build_financials.mjs
 !work/create_github_upload_report_pdf.py
+!Week2/
+!Week2/work/
+!Week2/work/build_financials.mjs
+!Week2/work/create_github_upload_report_pdf.py
