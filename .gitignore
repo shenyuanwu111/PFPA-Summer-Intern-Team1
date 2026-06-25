@@ -20,6 +20,8 @@ work/sec/
 work/yahoo/
 work/verification_inspect.ndjson
 work/node_out.log
+work/pdf_preview/
 
 !work/
 !work/build_financials.mjs
+!work/create_github_upload_report_pdf.py
