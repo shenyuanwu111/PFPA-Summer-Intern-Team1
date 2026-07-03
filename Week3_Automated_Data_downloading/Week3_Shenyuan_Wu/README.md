@@ -1,123 +1,81 @@
-# General Financial Data Downloader
+# KMV / TTC Credit Data Pipeline
 
-This project downloads and combines public company market data, SEC financial data, risk-free rates, and shares outstanding into CSV and Excel files.
+This repository explains the theory and data requirements behind KMV-style
+market-implied credit risk and TTC, or through-the-cycle, credit ratings. It
+also includes a reusable Python program that can download, extract, match, and
+export the main inputs needed for credit-risk analysis of a U.S. public
+company.
 
-It is designed to work from either ticker symbols or company names.
+The program accepts a ticker or company-name query, resolves the SEC CIK,
+downloads stock prices, SEC XBRL financial facts, Treasury interest-rate
+series, and saves matched CSV/XLSX outputs by trading date.
 
-## Features
+## Run
 
-- Resolves ticker symbols and SEC CIK numbers automatically.
-- Downloads daily stock price history from Yahoo Finance.
-- Downloads annual financial statement facts from SEC EDGAR XBRL APIs.
-- Downloads risk-free rate series from FRED.
-- Extracts shares outstanding history from SEC filings.
-- Matches financial statement data to trading dates using SEC filing dates.
-- Exports per-company CSV files and one multi-sheet Excel workbook.
-
-## Data Sources
-
-- Yahoo Finance Chart API for price history, dividends, and split events.
-- SEC EDGAR `company_tickers.json` for ticker-to-CIK mapping.
-- SEC EDGAR company facts API for XBRL financial data.
-- FRED CSV API for interest rate series.
-
-## Installation
-
-Create and activate a Python environment, then install dependencies:
+Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r finance_credit_pipeline/requirements.txt
 ```
 
-Recommended Python version: Python 3.10 or newer.
-
-## Usage
-
-Run with one or more ticker symbols:
+Run the pipeline:
 
 ```bash
-python general_financial_data_downloader.py AAPL MSFT AMZN
+PYTHONPATH=src python -m credit_data_pipeline.cli \
+  --company AAPL \
+  --start 2021-01-01 \
+  --end 2024-12-31 \
+  --out outputs/credit_data \
+  --user-agent "your-name your-email@example.com"
 ```
 
-Run with company names:
+`--company` can be a ticker such as `AAPL` or a company-name search such as
+`Apple`.
+
+## Outputs
+
+For each resolved ticker, the program writes:
+
+- `<SYMBOL>_prices.csv`: daily Yahoo stock prices, returns, and rolling equity volatility.
+- `<SYMBOL>_financials.csv`: extracted SEC accounting facts and TTC-style ratios.
+- `<SYMBOL>_rates.csv`: FRED interest-rate series, defaulting to `DGS1` and `DGS10`.
+- `<SYMBOL>_matched_daily.csv`: stock, rate, and latest public financial data matched by trading date.
+- `<SYMBOL>_credit_inputs.xlsx`: workbook with summary, raw sheets, matched panel, and data dictionary.
+
+Financial statements are matched to trading dates using the SEC `filed` date.
+This avoids using a fiscal period's numbers before they were publicly filed.
+
+## Main Prepared Fields
+
+KMV-style fields:
+
+- `market_cap_proxy`
+- `equity_vol_252d`
+- `risk_free_rate_proxy`
+- `default_point_proxy`
+- `market_default_distance_proxy`
+- `kmv_distance_proxy`
+
+TTC-style fields:
+
+- `book_leverage`
+- `current_ratio`
+- `net_margin`
+- `return_on_assets`
+- `interest_coverage_proxy`
+- `cash_to_assets`
+- `ttc_score_proxy`
+
+## Theory
+
+See [finance_credit_pipeline/theory.md](finance_credit_pipeline/theory.md) for
+the KMV/TTC comparison, data requirements, strengths, weaknesses, and why the
+pipeline prepares inputs rather than claiming to reproduce Moody's proprietary
+KMV EDF model.
+
+## Test
 
 ```bash
-python general_financial_data_downloader.py "Apple Inc" "Microsoft"
+PYTHONPATH=src python -m pytest tests/test_credit_data_pipeline.py
 ```
 
-Customize the history window and annual financial years:
-
-```bash
-python general_financial_data_downloader.py AAPL --years 2 --annual-years 3
-```
-
-Choose a custom output folder:
-
-```bash
-python general_financial_data_downloader.py AAPL --output-dir data
-```
-
-## Output Files
-
-For each company, files are saved under:
-
-```text
-data/<TICKER>/
-```
-
-Each company folder contains:
-
-- `<TICKER>_price_history.csv`: daily OHLCV, dividends, splits, and Yahoo adjusted close.
-- `<TICKER>_shares_history.csv`: shares outstanding observations from SEC filings.
-- `<TICKER>_financials_annual.csv`: extracted annual financial statement fields.
-- `<TICKER>_master_daily.csv`: trading-day master dataset with market data, rates, shares, market cap, and matched financial data.
-- `<TICKER>_all_data.xlsx`: Excel workbook with all of the above datasets as separate sheets.
-
-If a company fails, the script writes:
-
-```text
-data/failures.csv
-```
-
-## Master Daily Dataset
-
-The master daily file includes:
-
-- Daily stock price and volume.
-- Dividends and split indicators.
-- FRED interest rates: 1-year Treasury CMT, SOFR, and 10-year Treasury CMT.
-- Shares outstanding matched by SEC filing date.
-- Market capitalization based on daily close and available shares outstanding.
-- Annual financial fields matched to trading dates by SEC filing date.
-
-Using the SEC filing date helps avoid look-ahead bias. A trading day only receives financial data that had already been filed by that date.
-
-## Validation
-
-The script was tested with:
-
-```bash
-python general_financial_data_downloader.py AAPL --years 1 --annual-years 2 --output-dir validation_data
-```
-
-The validation run produced:
-
-- `251` trading-day rows.
-- `28` columns in `AAPL_master_daily.csv`.
-- Date range: `2025-07-03` to `2026-07-02`.
-- Excel sheets: `PriceHistory`, `SharesHistory`, `AnnualFinancials`, `RiskFreeRates`, `MasterDaily`, `CompanyInfo`.
-
-## Important Notes
-
-- The SEC recommends that automated requests include a descriptive `User-Agent`. Update `SEC_HEADERS` in the script with your name or project contact before heavy use.
-- SEC XBRL tag names vary across companies and industries. The script uses a candidate tag list and fallback calculations, but some companies may still have missing fields.
-- Foreign issuers, ADRs, funds, and companies with unusual reporting structures may require additional handling.
-- Market cap is calculated from shares outstanding observations available from filings. This is more conservative than using one latest share count for all historical dates, but it still depends on the timing and quality of SEC share disclosures.
-
-## Project Files
-
-```text
-general_financial_data_downloader.py
-requirements.txt
-README.md
-```

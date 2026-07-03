@@ -1,0 +1,35 @@
+Validation run for general_financial_data_downloader.py
+
+Command used:
+C:\Users\wujie\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe outputs\general_financial_data_downloader.py AAPL --years 1 --annual-years 2 --output-dir outputs\validation_data
+
+Result:
+Completed successfully.
+
+Generated validation folder:
+outputs\validation_data\AAPL
+
+Key files:
+- AAPL_all_data.xlsx
+- AAPL_master_daily.csv
+- AAPL_price_history.csv
+- AAPL_shares_history.csv
+- AAPL_financials_annual.csv
+
+Master daily dataset:
+- Shape: 251 rows x 28 columns
+- Date range: 2025-07-03 to 2026-07-02
+- Contains trading-day price data, risk-free rates, shares outstanding, market cap, and annual financial fields matched by SEC filing date.
+
+Excel workbook sheets:
+- PriceHistory
+- SharesHistory
+- AnnualFinancials
+- RiskFreeRates
+- MasterDaily
+- CompanyInfo
+
+Notes:
+- Initial validation found and fixed two issues:
+  1. Date dtype mismatch in merge_asof.
+  2. pandas to_excel sheet_name compatibility with the installed pandas version.
