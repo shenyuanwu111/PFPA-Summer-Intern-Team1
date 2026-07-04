@@ -1,0 +1,22 @@
+Validation summary for Week3_Guanming_Lin
+
+Scope:
+- Read the Week3_Shenyuan_Wu reference materials to understand the requested
+  KMV/TTC theory and automated data-download task.
+- Created a separate Week3_Guanming_Lin deliverable folder.
+- Included theory notes, reusable downloader package, CLI, requirements, tests,
+  and sample outputs.
+
+Core behavior:
+- Resolves either ticker symbols or company-name searches through the SEC ticker
+  index.
+- Downloads daily stock prices, SEC company facts, and FRED rate series.
+- Extracts credit-risk accounting fields and computes KMV-style and TTC-style
+  proxy variables.
+- Aligns financial statements to trading dates by SEC filing date to avoid
+  look-ahead bias.
+- Exports CSV files and an Excel workbook.
+
+Verification:
+- Unit tests cover SEC fact extraction, as-of matching, filing-date matching,
+  company symbol resolution, and preservation of multiple filing versions.
