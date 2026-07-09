@@ -1,0 +1,2 @@
+symbol,latest_trading_date,asset_value,asset_volatility,distance_to_default,pit_pd,converged,iterations
+KHC,2026-07-09,37847373647.52019,0.28621178946028186,5.041340704489851,2.3114078906427693e-07,True,2

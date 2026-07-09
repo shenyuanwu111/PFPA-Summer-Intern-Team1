@@ -1,0 +1,2 @@
+symbol,latest_trading_date,asset_value,asset_volatility,distance_to_default,pit_pd,converged,iterations
+COST,2026-07-09,407605012091.8213,0.22221988695410114,22.428981896827406,0.0,True,1
