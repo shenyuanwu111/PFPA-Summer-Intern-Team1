@@ -1,0 +1,4 @@
+numpy<2.0
+pandas>=2.1,<2.3
+requests>=2.31
+openpyxl>=3.1
