@@ -1,0 +1,2 @@
+symbol,latest_trading_date,asset_value,asset_volatility,distance_to_default,edf_pd,converged,iterations,last_sigma_change
+INTU,2026-07-09,78098041512.81738,0.36247287506117015,8.532389729381693,0.0,True,2,0.0
